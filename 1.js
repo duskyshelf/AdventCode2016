@@ -4,22 +4,33 @@ const split = input.split(", ");
 const directions = [[0,1], [1,0], [0,-1], [-1,0]];
 
 let location = [0,0];
-let direction = 2;
+let ord = 0;
+let whereIveBeen = [[0,0]];
+let visited = [];
 
 split.forEach((i) => {
   if (i[0] == "L") {
-    direction = (direction + 3) % 4
+    ord = (ord + 3) % 4
   } else {
-    direction = (direction + 1) % 4
+    ord = (ord + 1) % 4
   }
 
   const distance = i.substring(1);
+  const direction = directions[ord];
 
-  const movement = directions[direction].map((ord) => { return ord * distance })
+  for (var i = 0; i < distance; i++) {
+    location = [location[0] + direction[0], location[1] + direction[1]];
+    const visitedTwice = whereIveBeen.find((loc) => loc[0] === location[0] && loc[1] === location[1]);
 
-  location = [location[0] + movement[0], location[1] + movement[1]];
+    if (visitedTwice) {
+      visited.push({
+        location: visitedTwice,
+        distance: Math.abs(visitedTwice[0]) + Math.abs(visitedTwice[1])
+      })
+    }
+    whereIveBeen.push(location);
+  }
 
-  console.log(directions[direction], distance, location)
 });
 
-
+console.log(visited[0]);
