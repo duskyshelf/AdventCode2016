@@ -15,16 +15,16 @@ rl.on('line', (line) => {
   split.forEach((ord) => {
     switch (ord) {
       case "U":
-        if (loc[1] + 1 < 2) { loc = [ loc[0], loc[1] + 1 ] }
+        if ( (Math.abs(loc[0]) + Math.abs(loc[1] + 1)) <= 2 )  { loc = [ loc[0], loc[1] + 1 ] }
         break;
       case "D":
-        if (loc[1] - 1 > -2) { loc = [ loc[0], loc[1] - 1 ] }
+        if ( (Math.abs(loc[0]) + Math.abs(loc[1] - 1)) <= 2 )  { loc = [ loc[0], loc[1] - 1 ] }
         break;
       case "L":
-        if (loc[0] - 1 > -2) { loc = [ loc[0] - 1 , loc[1] ] }
+        if ( (Math.abs(loc[0] - 1) + Math.abs(loc[1])) <= 2 )  { loc = [ loc[0] - 1, loc[1] ] }
         break;
       case "R":
-        if (loc[0] + 1 < 2) { loc = [ loc[0] + 1, loc[1] ] }
+        if ( (Math.abs(loc[0] + 1) + Math.abs(loc[1])) <= 2 )  { loc = [ loc[0] + 1, loc[1] ] }
         break;
       default:
        return console.log("error")
@@ -32,5 +32,4 @@ rl.on('line', (line) => {
   })
 
   console.log(loc)
-
 });
