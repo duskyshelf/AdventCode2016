@@ -1,4 +1,4 @@
-var readline = require('readline');
+const readline = require('readline');
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -6,13 +6,31 @@ var rl = readline.createInterface({
   terminal: false
 });
 
-rl.on('line', function(line) {
+let loc = [0,0];
 
-  //manipulate lines
-  console.log(line)
 
-}).on('close', function() {
+rl.on('line', (line) => {
+  const split = line.split("");
 
- // when done
+  split.forEach((ord) => {
+    switch (ord) {
+      case "U":
+        if (loc[1] + 1 < 2) { loc = [ loc[0], loc[1] + 1 ] }
+        break;
+      case "D":
+        if (loc[1] - 1 > -2) { loc = [ loc[0], loc[1] - 1 ] }
+        break;
+      case "L":
+        if (loc[0] - 1 > -2) { loc = [ loc[0] - 1 , loc[1] ] }
+        break;
+      case "R":
+        if (loc[0] + 1 < 2) { loc = [ loc[0] + 1, loc[1] ] }
+        break;
+      default:
+       return console.log("error")
+    }
+  })
+
+  console.log(loc)
 
 });
