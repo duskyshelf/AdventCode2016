@@ -6,9 +6,20 @@ var rl = readline.createInterface({
   terminal: false
 });
 
+function sortNumber(a,b) {
+    return a - b;
+}
+
+let counter = 0;
 
 rl.on('line', (line) => {
-  // line by line
-}).on('close', () => {
-  // after all lines are finished
+  const re = /\s+/;
+  const split = line.split(re);
+
+  if (split.length === 4) { split.shift() }
+
+  var numbered = split.map(string => parseInt(string))
+  numbered.sort(sortNumber)
+
+  if (numbered[0] + numbered[1] > numbered[2]) { console.log(++counter) }
 });
